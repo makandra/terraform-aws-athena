@@ -1,0 +1,19 @@
+name: Tflint
+on:
+  pull_request:
+permissions:
+  contents: read
+
+jobs:
+  tflint:
+    permissions:
+      contents: read
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        path:
+          - .
+    steps:
+    - uses: makandra/github-actions/tflint@main
+      with:
+        path: ${{ matrix.path }}
