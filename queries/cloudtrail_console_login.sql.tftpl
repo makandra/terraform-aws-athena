@@ -1,0 +1,4 @@
+select useridentity.username, sourceipaddress, eventtime, additionaleventdata
+from cloudtrail.cloudtrail_logs
+where eventname = 'ConsoleLogin'
+order by date(from_iso8601_timestamp(eventtime)) desc

@@ -1,0 +1,11 @@
+SELECT
+    CONCAT(CAST(date AS VARCHAR), 'T', CAST(time AS VARCHAR)) AS timestamp,
+    request_ip as "client_ip",
+    status as "cloudfront_status_code",
+    method as "method",
+    uri as "uri",
+    user_agent as "ua"
+FROM cloudfront.cloudfront_logs
+WHERE
+  date BETWEEN date_add('day', -1, current_timestamp) and current_timestamp
+;

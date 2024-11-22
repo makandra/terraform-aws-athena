@@ -1,0 +1,2 @@
+select mail.timestamp, mail.source, mail.destination, bounce.bouncedrecipients[1].diagnosticcode as diagnosticcode from ses.ses_bounce_logs
+-- where  eventtype='Bounce' -- or any other event type
