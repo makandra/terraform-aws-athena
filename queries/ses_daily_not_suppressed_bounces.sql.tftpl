@@ -1,3 +1,3 @@
 select
-    date(from_iso8601_timestamp(mail.timestamp)) as date, count(*) as bounces from ses.ses_bounce_logs where  eventtype='Bounce'and bounce.bouncedrecipients[1].diagnosticcode not like '%Amazon SES did not send the message to this address%'
+    date(from_iso8601_timestamp(mail.timestamp)) as date, count(*) as bounces from ses.ses_logs where  eventtype='Bounce'and bounce.bouncedrecipients[1].diagnosticcode not like '%Amazon SES did not send the message to this address%'
 GROUP BY date(from_iso8601_timestamp(mail.timestamp)) order by date(from_iso8601_timestamp(mail.timestamp)) desc
