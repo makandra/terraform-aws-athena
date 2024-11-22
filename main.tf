@@ -1,18 +1,18 @@
 locals {
   named_queries = {
     cloudfront = var.cloudfront != null ? {
-      cloudfront_create_log_table               = "Create the table for CloudFront logs",
-      cloudfront_log_yesterday_today            = "Show requests to CloudFront yesterday and today",
-      cloudfront_log_yesterday_today_for_ip     = "Show requests to CloudFront from a given IP yesterday and today"
+      cloudfront_create_log_table               = "Creates the table for CloudFront logs",
+      cloudfront_log_yesterday_today            = "Shows requests to CloudFront yesterday and today",
+      cloudfront_log_yesterday_today_for_ip     = "Shows requests to CloudFront from a given IP yesterday and today"
       cloudfront_logs_for_specific_distribution = "Shows requests to a given cloudfront distribution, with optional filter for date, status code or ssl_protocol"
     } : {}
     cloudtrail = var.cloudtrail.bucket_name != null ? {
-      cloudtrail_create_log_table = "Create the table for CloudTrail logs",
+      cloudtrail_create_log_table = "Creates the table for CloudTrail logs",
       cloudtrail_console_login    = "Displays console login events, ordered by date"
     } : {}
     ses = var.ses != null ? {
-      ses_create_log_table             = "Create the table for SES logs"
-      ses_bounce_ratio                 = "Displays bounced email as % of send emails"
+      ses_create_log_table             = "Creates the table for SES logs"
+      ses_daily_bounced_and_send_mails = "Displays bounced and send mails for each day"
       ses_formatted_mails              = "Displays only the most relevant information per email, optional filter for event type"
       ses_daily_not_suppressed_bounces = "Displays amount of bounced emails per day, filtering out bounces caused by addresses being on the suppression list"
     } : {}
@@ -53,7 +53,8 @@ resource "aws_athena_database" "ses" {
 }
 
 resource "aws_athena_named_query" "cloudfront" {
-  for_each    = local.named_queries.cloudfront
+  for_each = local.named_queries.cloudfront
+
   name        = replace(each.key, "_", "-")
   database    = aws_athena_database.cloudfront[0].name
   description = each.value
@@ -66,7 +67,8 @@ resource "aws_athena_named_query" "cloudfront" {
 }
 
 resource "aws_athena_named_query" "cloudtrail" {
-  for_each    = local.named_queries.cloudtrail
+  for_each = local.named_queries.cloudtrail
+
   name        = replace(each.key, "_", "-")
   database    = aws_athena_database.cloudtrail[0].name
   description = each.value
@@ -80,7 +82,8 @@ resource "aws_athena_named_query" "cloudtrail" {
 }
 
 resource "aws_athena_named_query" "ses" {
-  for_each    = local.named_queries.ses
+  for_each = local.named_queries.ses
+
   name        = replace(each.key, "_", "-")
   database    = aws_athena_database.ses[0].name
   description = each.value

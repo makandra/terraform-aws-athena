@@ -12,10 +12,12 @@ variable "cloudfront" {
 variable "cloudtrail" {
   description = "Configuration for cloudtrail. Creates a db and saved cloudfront queries if bucket_name is set. Only set prefix if you configured one in your cloudtrail"
   type = object({
-    bucket_name = optional(string)
+    bucket_name = string
     prefix      = optional(string)
   })
-  default = {}
+  default = {
+    bucket_name = null
+  }
 }
 
 variable "ses" {
