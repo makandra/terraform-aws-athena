@@ -1,0 +1,6 @@
+    SELECT * FROM cloudfront.cloudfront_logs
+    WHERE host='https://$CLOUDFRONT_NAME.cloudfront.net'
+    -- AND "date" BETWEEN DATE '2023-08-10' AND DATE '2023-08-11' --date is a reserved word and needs to be doublequoted
+    -- AND status=200
+    -- AND ssl_protocol=TLSv1.2
+    LIMIT 100;
