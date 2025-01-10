@@ -15,7 +15,7 @@ permissions:
 
 jobs:
   scan:
-    runs-on: ubuntu-latest
+    runs-on: test-arc-runner-set
     steps:
       - uses: actions/checkout@v3
 
